@@ -30,31 +30,6 @@ Your local system should have the following tools installed:
 * [Git](https://git-scm.com/downloads)
 
 
-* Set up Git Credentials for the IAM user you will be using to run this demo by following the instructions [here](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-gc.html#setting-up-gc-iam).
-If you are using a federated identity rather than a static IAM user please see the additional instructions at the bottom of Part 1.
-
-Create a new CodeCommit repository, and note down the `cloneUrlHttp` property for later:
-```bash
-aws codecommit create-repository --repository-name eks-appmesh-demo
-git clone --mirror https://github.com/dspaxton/eks-appmesh-demo codecommit-eks-appmesh-demo
-cd codecommit-eks-appmesh-demo
-git push <url of codecommit repository> --all
-```
-
-## Federated Identity with CodeCommit and Git
-
-If your Federated Identity populates your AWS credentials file to use with the CLI, then the steps are simply to install `git-remote-codecommit` by running:
-```bash
-sudo pip install git-remote-codecommit
-```
-and then when you push to your codecommit repository in step 4 above the syntax changes to:
-```bash
-git push codecommit::<region>://<profile>@eks-istio-demo --all
-```
-Where the `region` name is the same as the region your codecommit repository runs in, and the `profile` name is the name you setup in your credentials file for your federated access (not your role name).
-
-
-
 ## Set up the deployment environment
 
 
@@ -65,10 +40,10 @@ If using a Mac system, please use [this guide](https://code.amazon.com/packages/
 Now that the working environment has been configured, you should download a copy of this repository.
 
 ```
-git clone <url of codecommit repository>
+git clone https://github.com/dspaxton/eks-app-mesh
 ```
 
-Change into the directory `eks-appmesh-demo/setup`.
+Change into the directory `eks-app-mesh/setup`.
 
 ### Deploy EKS & App Mesh Controller 
 
