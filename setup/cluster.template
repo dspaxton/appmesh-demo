@@ -1,0 +1,63 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: <<name>>
+  region: <<region>>
+vpc:
+  id: <<vpc>>
+  subnets:
+    private:
+      eu-west-1a:
+        id: <<privatesubnet1>>
+      eu-west-1b:
+        id: <<privatesubnet2>>
+      eu-west-1c:
+        id: <<privatesubnet3>>
+    public:
+      eu-west-1a:
+        id: <<publicsubnet1>>
+      eu-west-1b:
+        id: <<publicsubnet2>>
+      eu-west-1c:
+        id: <<publicsubnet3>>
+nodeGroups:
+  - name: default
+    minSize: 3
+    maxSize: 10
+    desiredCapacity: 3
+    privateNetworking: true 
+    instancesDistribution:
+      maxPrice: 0.20
+      instanceTypes: 
+        - m5a.2xlarge
+        - m5.2xlarge
+    iam:
+      withAddonPolicies:
+        albIngress: true
+        autoScaler: true
+        appMesh: true
+        xRay: true
+        cloudWatch: true
+        ebs: true
+        fsx: true
+        efs: true
+        externalDNS: true
+
+iam:    
+  withOIDC: true
+  serviceAccounts:
+  - metadata:
+      name: appmesh-controller
+      namespace: appmesh-system
+      labels: {aws-usage: "appmesh"}
+    attachPolicyARNs:
+    - "arn:aws:iam::aws:policy/AWSCloudMapFullAccess"
+    - "arn:aws:iam::aws:policy/AWSAppMeshFullAccess"
+
+
+fargateProfiles:
+  - name: appmesh-system
+    selectors:
+      # All workloads in the "appmesh-system" Kubernetes namespace will be
+      # scheduled onto Fargate:
+      - namespace: appmesh-system
