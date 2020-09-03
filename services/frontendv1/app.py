@@ -26,7 +26,7 @@ class frontend(object):
           </head>
           <h1>FrontEnd</h1>
           <body>
-          <p>Welcome
+          <p>Welcome<br>
           """
         html += str(backendoutput) + "<BR>"
         html += """</head>
