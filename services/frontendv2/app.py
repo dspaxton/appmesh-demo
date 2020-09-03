@@ -29,7 +29,6 @@ class frontend(object):
           <h1>FrontEnd</h1>
           <body>
           <p>Welcome
-          <P><a href="/backend">Get version</a><BR>
           """
         html += str(backendoutput) + "<BR>"
         html += "Latest stock info:" + str(output)

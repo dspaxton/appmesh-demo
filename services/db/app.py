@@ -19,7 +19,7 @@ class dbquery(object):
 	def index(self):
 		from bson.json_util import loads,dumps
 		## Create a MongoDB client, open a connection to Amazon DocumentDB as a replica set and specify the read preference as secondary preferred
-		docdbendpoint = "testclus1-docdb.cluster-cig0c7mgb1nk.eu-west-1.docdb.amazonaws.com"
+		docdbendpoint = "working-docdb.cluster-cig0c7mgb1nk.eu-west-1.docdb.amazonaws.com"
 		docdbuser = "mongoadmin"
 		docdbpass = "demoadminpass"
 		# uristring = "mongodb://" + docdbuser + ":" + docdbpass + "@" + docdbendpoint ":27017/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"

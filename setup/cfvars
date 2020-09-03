@@ -1,0 +1,14 @@
+export PRIVATESUBNET1=subnet-0cfbc1b1b6d6f1ea8
+export PRIVATESUBNET2=subnet-063b205630ac817b3
+export PRIVATESUBNET3=subnet-085e15fb25d231a9e
+export PUBLICSUBNET1=subnet-055641fb38125d296
+export PUBLICSUBNET2=subnet-055641fb38125d296
+export PUBLICSUBNET3=subnet-055641fb38125d296
+export VPC=vpc-0e3c38a82da3fc67e
+export CLUSTERNAME=working
+export REGION=eu-west-1
+export DOCUMENTDBSG=sg-0e054af08008c20f4
+export ACCOUNTNUMBER=813857306647
+export DOCDBENDPOINT=working-docdb.cluster-cig0c7mgb1nk.eu-west-1.docdb.amazonaws.com
+export CLUSTER_NAME=working
+export AWS_REGION=eu-west-1
