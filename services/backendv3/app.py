@@ -19,7 +19,7 @@ import pdb
 class frontend(object):
     @cherrypy.expose
     def index(self):
-        return "<B><font color='red'>This is v3</B>"
+        return "<B><font color='red'>This is v3</font></B>"
 
 
 
