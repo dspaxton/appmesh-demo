@@ -23,11 +23,6 @@ This is the infrastructure view, the logical service mapping view is a little di
 
 In order to fully build the demo, run the following steps in order:
 
-### Create a CodeCommit repository which you will push the code to since the code is currently hosted internally:
-
-Your local system should have the following tools installed:
-* [AWS CLI](https://aws.amazon.com/cli/)
-* [Git](https://git-scm.com/downloads)
 
 
 ## Set up the deployment environment
