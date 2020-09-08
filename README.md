@@ -33,9 +33,9 @@ Your local system should have the following tools installed:
 ## Set up the deployment environment
 
 
-If using a Cloud9 desktop, please use [this guide](https://code.amazon.com/packages/Eks-istio-demo/blobs/master/--/SETUP-CLOUD9.md)
+If using a Cloud9 desktop, please use [this guide](https://github.com/dspaxton/EKS-App-Mesh/blob/master/SETUP-CLOUD9.md)
 
-If using a Mac system, please use [this guide](https://code.amazon.com/packages/Eks-istio-demo/blobs/master/--/SETUP-MAC.md)
+If using a Mac system, please use [this guide](https://github.com/dspaxton/EKS-App-Mesh/blob/master/SETUP-MAC.md)
 
 Now that the working environment has been configured, you should download a copy of this repository.
 
