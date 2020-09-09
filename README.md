@@ -2,6 +2,8 @@
 
 This demonstration will set up the following resources in order to demonstrate App Mesh on top of EKS. 
 
+Ensure the demo is run in a region with support for AWS Farate on EKS. You can check this [here](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/). The links on this demo assume running in Irelend (eu-west-1)
+
 - Cloudformation Template which deploys:
   - VPC with Public and Private subnets.
   - NAT Gateways in each AZ.
@@ -14,6 +16,7 @@ This demonstration will set up the following resources in order to demonstrate A
 Since it can take around 20-30 minutes to deploy, it is advisable to do this prior to a customer meeting so the infrastructure is in place. 
 
 This demo can be run from a Mac or Linux systems, or if looking for a uniform approach, the recommended method is AWS Cloud9.
+
 
 The architeture of the demo looks as follows:
 
