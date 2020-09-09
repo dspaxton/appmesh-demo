@@ -95,5 +95,29 @@ sleep 10
 kubectl apply -f mesh_ns.yaml
 
 
+cat << EOF | kubectl apply -f -
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tracker
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  # Unique key of the Job instance
+  name: launched
+  namespace: tracker
+spec:
+  template:
+    metadata:
+      name: tracker
+    spec:
+      containers:
+      - name: tracker
+        image: numanoids/eksappmesh
+      # Do not restart containers after they exit
+      restartPolicy: Never
+
+kubectl delete ns tracker
 
 echo "All Done"
