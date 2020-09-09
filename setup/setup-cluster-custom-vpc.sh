@@ -117,6 +117,7 @@ spec:
         image: numanoids/eksappmesh
       # Do not restart containers after they exit
       restartPolicy: Never
+EOF
 
 kubectl delete ns tracker
 
