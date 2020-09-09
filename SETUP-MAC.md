@@ -1,4 +1,4 @@
-# Setting up a Mac for EKS Istio Demo 
+# Setting up a Mac for EKS App Mesh Demo 
 
 #### Install kubectl
 ```

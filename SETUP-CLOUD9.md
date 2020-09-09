@@ -1,4 +1,4 @@
-# Setting up Cloud 9 for EKS Istio Demo 
+# Setting up Cloud 9 for EKS App Mesh Demo 
 
 Create a Cloud9 Environment: [https://eu-west-1.console.aws.amazon.com/cloud9/home?region=eu-west-1](https://eu-west-1.console.aws.amazon.com/cloud9/home?region=eu-west-1)
 
