@@ -19,8 +19,11 @@ import pdb
 class frontend(object):
     @cherrypy.expose
     def index(self):
-        return "<B>This is v2</B>"
+        return "<B>This is backend V2</B>"
 
+    @cherrypy.expose
+    def ping(self):
+        return "OK"
 
 
 

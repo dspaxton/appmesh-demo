@@ -17,8 +17,8 @@ import pdb
 class frontend(object):
     @cherrypy.expose
     def index(self):
-        backendresponse = urllib.request.urlopen('http://backend.my-apps.svc.cluster.local:8080/')
-        backendoutput = backendresponse.read().decode('utf-8')
+        response = urllib.request.urlopen('http://db.private-example.com:8080/')
+        output = response.read().decode('utf-8')
         html = """<html>
         <center>
           <head>
@@ -26,13 +26,17 @@ class frontend(object):
           </head>
           <h1>FrontEnd</h1>
           <body>
-          <p>Welcome to Frontend V1<br>
+          <p>Welcome to the V3 frontend running on Fargate
+          <p>
           """
-        html += str(backendoutput) + "<BR>"
+        #html += str(backendoutput) + "<BR>"
+        html += "Latest stock info:" + str(output)
         html += """</head>
           </html>
           """
         return html
+
+
 
     @cherrypy.expose
     def ping(self):
