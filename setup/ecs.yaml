@@ -155,6 +155,10 @@ Resources:
                 DependsOn:
                     - ContainerName: envoy
                       Condition: HEALTHY
+                HealthCheck:
+                    Command:
+                        - CMD-SHELL
+                        - curl -s http://localhost:8080/ping | grep OK                      
               - Name: xray
                 Image: amazon/aws-xray-daemon
                 Essential: true
