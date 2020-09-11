@@ -20,13 +20,14 @@ class frontend(object):
         response = urllib.request.urlopen('http://db.private-example.com:8080/')
         output = response.read().decode('utf-8')
         html = """<html>
+        <title>Frontend</title>
         <center>
           <head>
             <link href="/static/css/style.css" rel="stylesheet">
           </head>
           <h1>FrontEnd</h1>
           <body>
-          <p>Welcome to the V3 frontend running on Fargate
+          <p>Welcome to the V3 frontend running on ECS Fargate
           <p>
           """
         #html += str(backendoutput) + "<BR>"

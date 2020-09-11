@@ -51,7 +51,7 @@ spec:
           name: backend
     - virtualService:
         virtualServiceRef:
-          name: db
+          name: db.private-example.com
   serviceDiscovery:
     dns:
       hostname: frontend-v2.my-apps.svc.cluster.local
@@ -69,6 +69,7 @@ spec:
         protocol: http
   routes:
     - name: frontend-route
+      priority: 2
       httpRoute:
         match:
           prefix: /
@@ -118,7 +119,7 @@ metadata:
   name: db
   namespace: my-apps
 spec:
-  awsName: db.my-apps.svc.cluster.local
+  awsName: db.private-example.com
   provider:
     virtualNode:
       virtualNodeRef:
@@ -586,7 +587,7 @@ metadata:
   name: ingress-gateway
   namespace: my-apps
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: ingress-gateway

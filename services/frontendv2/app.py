@@ -19,9 +19,10 @@ class frontend(object):
     def index(self):
         backendresponse = urllib.request.urlopen('http://backend.my-apps.svc.cluster.local:8080/')
         backendoutput = backendresponse.read().decode('utf-8')
-        response = urllib.request.urlopen('http://http://db.private-example.com:8080/')
+        response = urllib.request.urlopen('http://db.private-example.com:8080/')
         output = response.read().decode('utf-8')
         html = """<html>
+        <title>Frontend</title>
         <center>
           <head>
             <link href="/static/css/style.css" rel="stylesheet">
