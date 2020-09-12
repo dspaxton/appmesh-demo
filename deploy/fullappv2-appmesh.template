@@ -51,7 +51,7 @@ spec:
           name: backend
     - virtualService:
         virtualServiceRef:
-          name: db.private-example.com
+          name: db
   serviceDiscovery:
     dns:
       hostname: frontend-v2.my-apps.svc.cluster.local
