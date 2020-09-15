@@ -77,10 +77,17 @@ Launch the ECS CloudFormation by running the following step:
 ./ecsdeploy.sh
 ```
 
+The architecture now looks as follows now we've added an ECS Fargate Service:
+
+![](img/architecture-v2.png)
+
 This will launch the Cluster, create the task definitions and start the ECS Service. The script will also update the frontend-virtual-router in App Mesh to add frontend-v3 to the route table with equal weighting to the V1 and V2 frontends. 
 
 Go back to the browser with the application running and hit refresh a few times until the V3 frontend appears. This can demonstrate how App Mesh can be leveraged to connect different compute resources together with observability and tracing capability but without Developers needing to code intrumentation into their apps and allowing freedom of choice of how workloads are run.
 
+the logical view of the application now looks as follows with the ECS Fargate service circled in red:
+
+![](img/Appmesh-logical-Logical-EKS-ECS-Fargate.png)
 
 ## Cleanup 
 
