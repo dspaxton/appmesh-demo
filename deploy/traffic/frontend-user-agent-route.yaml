@@ -1,0 +1,39 @@
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: VirtualRouter
+metadata:
+  namespace: my-apps
+  name: frontend-virtual-router
+spec:
+  listeners:
+    - portMapping:
+        port: 8080
+        protocol: http
+  routes:
+    - name: user-agent-route
+      priority: 1
+      httpRoute:
+        match:
+          prefix: /
+          headers:
+            - name: "user-agent"
+              invert: false
+              match:  
+                regex: ".*Macintosh.*"
+        action:
+          weightedTargets:
+            - virtualNodeRef:
+                name: frontend-v2
+              weight: 1
+    - name: frontend-route
+      priority: 2
+      httpRoute:
+        match:
+          prefix: /
+        action:
+          weightedTargets:
+            - virtualNodeRef:
+                name: frontend-v1
+              weight: 1
+            - virtualNodeRef:
+                name: frontend-v2
+              weight: 1

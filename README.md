@@ -13,7 +13,7 @@ Ensure the demo is run in a region with support for AWS Farate on EKS. You can c
   - 3 nodes deployed into the private subnets and using spot from the instance types m5a.2xlarge & m5.2xlarge.
 - A Demonstration application consisting of frontend, backend and DB microservices
 
-Since it can take around 20-30 minutes to deploy, it is advisable to do this prior to a customer meeting so the infrastructure is in place. 
+Deployment time can be between 20 and 30 minutes so this should be factored into any time planning for demonstration purposes. 
 
 This demo can be run from a Mac or Linux systems, or if looking for a uniform approach, the recommended method is AWS Cloud9.
 
@@ -31,9 +31,9 @@ In order to fully build the demo, run the following steps in order:
 ## Set up the deployment environment
 
 
-If using a Cloud9 desktop, please use [this guide](https://github.com/dspaxton/EKS-App-Mesh/blob/master/SETUP-CLOUD9.md)
+If using a Cloud9 desktop, please use [this guide](SETUP-CLOUD9.md)
 
-If using a Mac system, please use [this guide](https://github.com/dspaxton/EKS-App-Mesh/blob/master/SETUP-MAC.md)
+If using a Mac system, please use [this guide](SETUP-MAC.md)
 
 Now that the working environment has been configured, you should download a copy of this repository.
 
@@ -88,8 +88,6 @@ backend-v1-5b979478cf-l7ztc        3/3     Running   0          45s
 backend-v2-554b967c9f-f588v        3/3     Running   0          45s
 backend-v3-6cfb5b4495-5rwr2        3/3     Running   0          45s
 frontend-v1-65ff6ff49d-2pq8z       3/3     Running   0          45s
-frontend-v1-65ff6ff49d-gmjkt       3/3     Running   0          45s
-frontend-v1-65ff6ff49d-lqmdq       3/3     Running   0          45s
 ingress-gateway-57dc5b988d-2fsp8   2/2     Running   0          45s
 ingress-gateway-57dc5b988d-8chwx   2/2     Running   0          45s
 ingress-gateway-57dc5b988d-jxj8h   2/2     Running   0          45s
@@ -103,7 +101,7 @@ kubectl -n my-apps get svc
 ```
 It will take a few minutes for the Load Balancer to be provisioned, the targets registered and returning a healthy status for the health checks. 
 
-Open a new browser tab and go to the address of the load balancer. It should return a Frontend title with a welcome and a line stating **This is v** and the version number of the backend which was chosen. Hit refresh several more times and then switch to the X-Ray console. Change the time period at the top right of the page from Last 5 minutes to Last minute. The service map should update and display a map of the services that are receiving traffic. If it doesn't immediately appear, wait a couple of minutes as the proxies may be still retrieving their configurations from the control plane. 
+Open a new browser tab and go to the address of the load balancer. It should return a Frontend title with a welcome and a line stating **This is backend V** and the version number of the backend which was chosen. Hit refresh several more times and then switch to the X-Ray console. Change the time period at the top right of the page from Last 5 minutes to Last minute. The service map should update and display a map of the services that are receiving traffic. If it doesn't immediately appear, wait a couple of minutes as the proxies may be still retrieving their configurations from the control plane. 
 
 The X-Ray console should look something like this. 
 
@@ -137,6 +135,12 @@ Now we can deploy V2 of the application (Remember we are also still running the 
 Run `kubectl apply -f ../deploy/fullappv2-appmesh.yaml` and switch to the X-Ray Console tab. The map should update to show the new components (frontendv2 and db). 
 
 If you switch to the tab where the application is loaded and hit refresh some more times, you should see a new line with *Latest stock info* and some JSON. This is being retrieved from the DocumentDB cluster by the new DB service and sent back to the frontendv2 container. 
+
+All the services with the exception of the DB service are only accessible within the cluster since they are using kubernetes built-in DNS however what if we want to make a service available outside the cluster? 
+
+There are a couple of ways to do this. We could deploy a Load Balancer as part of the service however this could mean running multiple Load Balancers and could be a costly proposition as well as maintaining mappings for friendly DNS names to those assigned to the Load Balancer. An alternative approach is to expose the pods directly. With EKS, the pods receive IP addresses from the VPC pool so there's no overlay network to consider but it does mean making the pod ports available via a Security Group. We've already created a security group that allows access from the VPC and attached it to the cluster during the setup process. 
+
+We are using [AWS Cloud Map](https://aws.amazon.com/cloud-map/) to make the DB service available to other entities within the VPC. The VirtualNode definition for the DB service includes a specification to create an entry within Cloud Map for service available at db.private-example.com. The namespace was defined during the CloudFormation process. Once the DB Pods are instantiated, their IP addresses are registered with Cloud Map and the namespace is associated with the VPC so that any requests to db.private-example.com resolve to the pod addresses. 
 
 
 ![](img/appmesh-v2.png)
@@ -246,6 +250,11 @@ Now we can consider the Frontend V2 and Backend V3 services as being suitable fo
 Finally, here's a logical diagram of what has been deployed:
 
 ![](img/Appmesh-logical.png)
+
+Click on [this link](README2.md) to see how to deploy some additional capabilities:
+1. Routing based on User-Agent header 
+2. Deploying an ECS Fargate Service and incorporating that into the mesh. 
+
 
 
 ## Cleanup 

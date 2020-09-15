@@ -69,6 +69,7 @@ spec:
         protocol: http
   routes:
     - name: frontend-route
+      priority: 2
       httpRoute:
         match:
           prefix: /
@@ -108,8 +109,9 @@ spec:
         port: 8080
         protocol: http
   serviceDiscovery:
-    dns:
-      hostname: db.my-apps.svc.cluster.local
+    awsCloudMap:
+      namespaceName: "private-example.com"
+      serviceName: db
 ---
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualService
@@ -117,7 +119,7 @@ metadata:
   name: db
   namespace: my-apps
 spec:
-  awsName: db.my-apps.svc.cluster.local
+  awsName: db.private-example.com
   provider:
     virtualNode:
       virtualNodeRef:
@@ -313,7 +315,7 @@ metadata:
     app: frontend-v1
     version: v1
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: frontend-v1
@@ -544,7 +546,7 @@ metadata:
     app: db
     version: v1
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: db
@@ -585,7 +587,7 @@ metadata:
   name: ingress-gateway
   namespace: my-apps
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: ingress-gateway

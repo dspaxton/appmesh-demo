@@ -20,6 +20,8 @@ export PUBLICSUBNET3=$(aws --region $REGION cloudformation describe-stacks --sta
 export VPC=$(aws --region $REGION cloudformation describe-stacks --stack-name $CLUSTERNAME --query "Stacks[0].Outputs[?OutputKey=='VPC'].OutputValue" --output text)
 export DOCUMENTDBSG=$(aws --region $REGION cloudformation describe-stacks --stack-name $CLUSTERNAME --query "Stacks[0].Outputs[?OutputKey=='DocumentDBSG'].OutputValue" --output text)
 export DOCDBENDPOINT=$(aws --region $REGION cloudformation describe-stacks --stack-name $CLUSTERNAME --query "Stacks[0].Outputs[?OutputKey=='DocumentDBEndpoint'].OutputValue" --output text)
+export DBSVCSG=$(aws --region $REGION cloudformation describe-stacks --stack-name $CLUSTERNAME --query "Stacks[0].Outputs[?OutputKey=='DBSVCSG'].OutputValue" --output text)
+export NAMESPACE=$(aws --region $REGION cloudformation describe-stacks --stack-name $CLUSTERNAME --query "Stacks[0].Outputs[?OutputKey=='CloudMapNamespace'].OutputValue" --output text)
 export ACCOUNTNUMBER=$(aws --region $REGION sts get-caller-identity --query "Account" --output text )
 export REGION=$REGION
 export CLUSTER_NAME=$CLUSTERNAME
@@ -39,20 +41,24 @@ echo export ACCOUNTNUMBER=$ACCOUNTNUMBER >> cfvars
 echo export DOCDBENDPOINT=$DOCDBENDPOINT >> cfvars
 echo export CLUSTER_NAME=$CLUSTERNAME >> cfvars
 echo export AWS_REGION=$REGION >> cfvars
-
+echo export DBSVCSG=$DBSVCSG >> cfvars
+echo export NAMESPACE=$NAMESPACE >> cfvars
 
 # Rewrite cluster name from template file
 
 sed "s/<<name>>/$CLUSTERNAME/" cluster.template > $CLUSTERNAME.yaml
 
-#Rewrite regions in cluster file
+# Rewrite regions in cluster file
 
 sed -i.bak "s/<<region>>/$REGION/" $CLUSTERNAME.yaml
 
-#Rewrite the VPC ID
+# Rewrite the VPC ID
 
 sed -i.bak "s/<<vpc>>/$VPC/" $CLUSTERNAME.yaml
 
+# Rewrite the security group holder with the new ID
+
+sed -i.bak "s/<<securitygroup>>/$DBSVCSG/" $CLUSTERNAME.yaml
 
 # Rewrite private subnets in cluster file
 

@@ -1,0 +1,53 @@
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: VirtualRouter
+metadata:
+  namespace: my-apps
+  name: backend-virtual-router
+spec:
+  listeners:
+    - portMapping:
+        port: 8080
+        protocol: http
+  routes:
+    - name: backend-route
+      httpRoute:
+        match:
+          prefix: /
+        action:
+          weightedTargets:
+            - virtualNodeRef:
+                name: backend-v1
+              weight: 1
+            - virtualNodeRef:
+                name: backend-v2
+              weight: 1
+            - virtualNodeRef:
+                name: backend-v3
+              weight: 1
+---
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: VirtualRouter
+metadata:
+  namespace: my-apps
+  name: frontend-virtual-router
+spec:
+  listeners:
+    - portMapping:
+        port: 8080
+        protocol: http
+  routes:
+    - name: frontend-route
+      httpRoute:
+        match:
+          prefix: /
+        action:
+          weightedTargets:
+            - virtualNodeRef:
+                name: frontend-v1
+              weight: 1
+            - virtualNodeRef:
+                name: frontend-v2
+              weight: 1
+            - virtualNodeRef:
+                name: frontend-v3
+              weight: 1

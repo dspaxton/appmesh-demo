@@ -253,6 +253,17 @@ Resources:
       RouteTableId: !Ref PrivateRouteTable3
       DestinationCidrBlock: 0.0.0.0/0
       NatGatewayId: !Ref NAT3
+
+  DBSVCSG:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "Access the DB containers from outisde the EKS Cluster"
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - CidrIp: !Ref VPCCIDR
+          IpProtocol: tcp
+          FromPort: 8080
+          ToPort: 8080
       
   DocumentDBSG:
     Type: AWS::EC2::SecurityGroup
@@ -328,7 +339,7 @@ Resources:
   CloudMapNamespace:
     Type: 'AWS::ServiceDiscovery::PrivateDnsNamespace'
     Properties:
-      Description: AWS Cloud Map private DNS namespace for resources for example.com website
+      Description: AWS Cloud Map private DNS namespace for resources for private-example.com website
       Vpc: !Ref VPC
       Name: private-example.com
 
@@ -380,3 +391,5 @@ Outputs:
       - Endpoint
   CloudMapNamespace:
     Value: !Ref CloudMapNamespace
+  DBSVCSG:
+    Value: !Ref DBSVCSG

@@ -1,0 +1,30 @@
+{
+    "meshName": "my-mesh",
+    "routeName": "frontend-route",
+        "spec": {
+            "httpRoute": {
+                "action": {
+                    "weightedTargets": [
+                        {
+                            "virtualNode": "frontend-v1_my-apps",
+                            "weight": 1
+                        },
+                        {
+                            "virtualNode": "frontend-v2_my-apps",
+                            "weight": 1
+                        },
+                        {
+                            "virtualNode": "frontend-v3",
+                            "weight": 1
+                        }
+                    ]
+                },
+                "match": {
+                    "prefix": "/"
+                }
+            },
+        "priority": 2
+        },
+        
+    "virtualRouterName": "frontend-virtual-router_my-apps"
+}

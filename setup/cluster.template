@@ -25,10 +25,12 @@ nodeGroups:
     minSize: 3
     maxSize: 10
     desiredCapacity: 3
-    privateNetworking: true 
+    privateNetworking: true
+    securityGroups:
+      attachIDs: [<<securitygroup>>]
     instancesDistribution:
       maxPrice: 0.20
-      instanceTypes: 
+      instanceTypes:
         - m5a.2xlarge
         - m5.2xlarge
     iam:
@@ -43,7 +45,7 @@ nodeGroups:
         efs: true
         externalDNS: true
 
-iam:    
+iam:
   withOIDC: true
   serviceAccounts:
   - metadata:
@@ -61,3 +63,4 @@ fargateProfiles:
       # All workloads in the "appmesh-system" Kubernetes namespace will be
       # scheduled onto Fargate:
       - namespace: appmesh-system
+
