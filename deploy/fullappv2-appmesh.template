@@ -315,7 +315,7 @@ metadata:
     app: frontend-v1
     version: v1
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: frontend-v1
@@ -546,7 +546,7 @@ metadata:
     app: db
     version: v1
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: db
