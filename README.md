@@ -88,8 +88,6 @@ backend-v1-5b979478cf-l7ztc        3/3     Running   0          45s
 backend-v2-554b967c9f-f588v        3/3     Running   0          45s
 backend-v3-6cfb5b4495-5rwr2        3/3     Running   0          45s
 frontend-v1-65ff6ff49d-2pq8z       3/3     Running   0          45s
-frontend-v1-65ff6ff49d-gmjkt       3/3     Running   0          45s
-frontend-v1-65ff6ff49d-lqmdq       3/3     Running   0          45s
 ingress-gateway-57dc5b988d-2fsp8   2/2     Running   0          45s
 ingress-gateway-57dc5b988d-8chwx   2/2     Running   0          45s
 ingress-gateway-57dc5b988d-jxj8h   2/2     Running   0          45s
@@ -253,7 +251,9 @@ Finally, here's a logical diagram of what has been deployed:
 
 ![](img/Appmesh-logical.png)
 
-If you want to deploy some additional cababilities, click on [this link](https://github.com/dspaxton/EKS-App-Mesh/blob/master/README2.md)
+Click on [this link](https://github.com/dspaxton/EKS-App-Mesh/blob/master/README2.md) to deploy some additional capabilities including:
+1. Routing based on User-Agent header 
+2. Deploying an ECS Fargate Service and incorporating that into the mesh. 
 
 
 
