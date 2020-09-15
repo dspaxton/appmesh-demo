@@ -251,7 +251,7 @@ Finally, here's a logical diagram of what has been deployed:
 
 ![](img/Appmesh-logical.png)
 
-Click on [this link](README2.md) to deploy some additional capabilities including:
+Click on [this link](README2.md) to see how to deploy some additional capabilities:
 1. Routing based on User-Agent header 
 2. Deploying an ECS Fargate Service and incorporating that into the mesh. 
 
