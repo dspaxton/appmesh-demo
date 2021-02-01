@@ -4,7 +4,7 @@ Create a Cloud9 Environment: [https://eu-west-1.console.aws.amazon.com/cloud9/ho
 
 Select Create environment
 
-Give it an appropriate name and click Next.
+Give it an appropriate name, choose Amazon Linux 2 as the Operating System and click Next.
 
 Choose "t3.small" for instance type, take all default values and click Create environment
 
@@ -25,7 +25,7 @@ binary to allow IAM authentication for your Kubernetes cluster.
 
 #### Install kubectl
 ```
-sudo curl --silent --location -o /usr/local/bin/kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.16.12/2020-07-08/bin/linux/amd64/kubectl
+sudo curl --silent --location -o /usr/local/bin/kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.18.9/2020-11-02/bin/linux/amd64/kubectl
 
 sudo chmod +x /usr/local/bin/kubectl
 ```
@@ -78,11 +78,16 @@ eksctl completion bash >> ~/.bash_completion
 sudo pip install --upgrade awscli
 ```
 
-#### Install wbox for making repeated calls to the service (the second command may show a lock but wait a few seconds and it should clear)
+#### Install wbox for making repeated calls to the service. 
 
 ```
-sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 sudo yum -y install wbox
+```
+
+If the environment complains that wbox cannot be found, you might need to enable the EPEL Repository:
+
+```
+sudo yum-config-manager --enable epel
 ```
 
 #### Install Helm
