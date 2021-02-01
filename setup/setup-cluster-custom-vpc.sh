@@ -123,7 +123,7 @@ spec:
     spec:
       containers:
       - name: tracker
-        image: numanoids/eksappmesh
+        image: public.ecr.aws/f8q6n5u1/appmeshdemocounter:latest
       # Do not restart containers after they exit
       restartPolicy: Never
 EOF
