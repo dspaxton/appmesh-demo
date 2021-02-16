@@ -80,7 +80,7 @@ spec:
               weight: 1
             - virtualNodeRef:
                 name: frontend-v2
-              weight: 1
+              weight: 0
 
 ---
 apiVersion: appmesh.k8s.aws/v1beta2
