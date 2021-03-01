@@ -94,7 +94,10 @@ helm upgrade -i appmesh-controller eks/appmesh-controller \
 
 echo "Installing Cloudwatch Agent"
 curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/master/k8s-yaml-templates/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/{{cluster_name}}/${CLUSTERNAME}/;s/{{region_name}}/${REGION}/" | kubectl apply -f -
-    
+
+echo "Deploying Metrics Server"
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.4.1/components.yaml
+
 
 sleep 10
 
@@ -120,7 +123,7 @@ spec:
     spec:
       containers:
       - name: tracker
-        image: numanoids/eksappmesh
+        image: public.ecr.aws/f8q6n5u1/appmeshdemocounter:latest
       # Do not restart containers after they exit
       restartPolicy: Never
 EOF
